@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Options;
 using SentimentAnalyser.Domain.Common;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 
 namespace SentimentAnalyser.Infrastructure.Database
 {

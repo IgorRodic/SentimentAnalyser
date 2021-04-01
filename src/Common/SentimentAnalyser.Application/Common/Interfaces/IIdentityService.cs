@@ -1,4 +1,5 @@
 ﻿using SentimentAnalyser.Application.Common.Models;
+using SentimentAnalyser.Application.Dto;
 using System.Threading.Tasks;
 
 namespace SentimentAnalyser.Application.Common.Interfaces

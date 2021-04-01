@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-
+using SentimentAnalyser.Infrastructure.Services;
 
 namespace SentimentAnalyser.Infrastructure
 {
@@ -57,13 +57,7 @@ namespace SentimentAnalyser.Infrastructure
                 c.DefaultRequestHeaders.Add(configuration.GetSection("OpenWeatherApi:Host:Key").Value, configuration.GetSection("OpenWeatherApi:Host:Value").Value);
             });
 
-            services.AddTransient<IHttpClientHandler, HttpClientHandler>();
-            services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
-            services.AddTransient<IEmailService, EmailService>();
-            services.AddTransient<IOpenWeatherService, OpenWeatherService>();
-            services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
-            services.AddTransient<ITokenService, TokenService>();
 
             services.AddAuthentication(options =>
             {

@@ -1,4 +1,6 @@
-﻿using MapsterMapper;
+﻿using Mapster;
+using MapsterMapper;
+using Microsoft.EntityFrameworkCore;
 using SentimentAnalyser.Application.Common.Interfaces;
 using SentimentAnalyser.Application.Common.Models;
 using SentimentAnalyser.Application.Dto;
