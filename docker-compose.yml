@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  sql-server-db:
+    container_name: sql-server-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "Finbet123"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "21433:1433"
+    networks:
+      - webnet
+
+  sentimentanalyser.webapi:
+    image: ${DOCKER_REGISTRY-}sentimentanalyserwebapi
+    build:
+      context: .
+      dockerfile: src/Apps/SentimentAnalyser.WebApi/Dockerfile
+    ports:
+      - "5006:443"
+      #- "5005:80"
+    environment:
+      - "ConnectionStrings__DefaultConnection=Server=sql-server-db;Database=SentimentDb;User=sa;Password=Finbet123;MultipleActiveResultSets=true"
+    restart: on-failure
+    networks:
+      - webnet
+    depends_on:
+      - sql-server-db
+
+networks:
+  webnet:
+    driver: bridge

@@ -1,56 +1,29 @@
-﻿using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
+using SentimentAnalyser.Application.Common.Interfaces;
+using SentimentAnalyser.Domain.Common;
+using SentimentAnalyser.Domain.Entities;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using SentimentAnalyser.Application.Common.Interfaces;
-using SentimentAnalyser.Infrastructure.Identity;
-using SentimentAnalyser.Domain.Entities;
-using IdentityServer4.EntityFramework.Options;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.Extensions.Options;
-using SentimentAnalyser.Domain.Common;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 
 namespace SentimentAnalyser.Infrastructure.Database
 {
-    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
+    public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
-        private readonly IDateTime _dateTime;
-        private readonly ICurrentUserService _currentUserService;
         private readonly IDomainEventService _domainEventService;
 
         public ApplicationDbContext(
             DbContextOptions options,
-            IOptions<OperationalStoreOptions> operationalStoreOptions,
-            ICurrentUserService currentUserService,
-            IDateTime dateTime,
-            IDomainEventService domainEventService) : base(options, operationalStoreOptions)
+            IDomainEventService domainEventService) : base(options)
         {
-            _dateTime = dateTime;
             _domainEventService = domainEventService;
-            _currentUserService = currentUserService;
         }
 
         public DbSet<Sentiment> Sentiments { get; set; }
 
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            foreach (EntityEntry<AuditableEntity> entry in ChangeTracker.Entries<AuditableEntity>())
-            {
-                switch (entry.State)
-                {
-                    case EntityState.Added:
-                        entry.Entity.Creator = _currentUserService.UserId;
-                        entry.Entity.CreateDate = _dateTime.Now;
-                        break;
-                    case EntityState.Modified:
-                        entry.Entity.Modifier = _currentUserService.UserId;
-                        entry.Entity.ModifyDate = _dateTime.Now;
-                        break;
-                }
-            }
-
             var result = await base.SaveChangesAsync(cancellationToken);
 
             await DispatchEvents();

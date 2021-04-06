@@ -13,11 +13,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{15757886-2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{FAD7531E-7697-4B6B-BDFA-3EA2EFD6AECA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentimentAnalyser.Application", "src\Common\SentimentAnalyser.Application\SentimentAnalyser.Application.csproj", "{804151A0-9996-4EAD-992F-69290855E93B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SentimentAnalyser.Application", "src\Common\SentimentAnalyser.Application\SentimentAnalyser.Application.csproj", "{804151A0-9996-4EAD-992F-69290855E93B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentimentAnalyser.Domain", "src\Common\SentimentAnalyser.Domain\SentimentAnalyser.Domain.csproj", "{3D82A046-AA37-4A65-A184-D691D81DEBFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SentimentAnalyser.Domain", "src\Common\SentimentAnalyser.Domain\SentimentAnalyser.Domain.csproj", "{3D82A046-AA37-4A65-A184-D691D81DEBFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentimentAnalyser.Infrastructure", "src\Common\SentimentAnalyser.Infrastructure\SentimentAnalyser.Infrastructure.csproj", "{7C42E69F-8D06-4EAE-986B-7994CCD72788}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SentimentAnalyser.Infrastructure", "src\Common\SentimentAnalyser.Infrastructure\SentimentAnalyser.Infrastructure.csproj", "{7C42E69F-8D06-4EAE-986B-7994CCD72788}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{5011F116-C361-41B4-847E-BE815E1D1E53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{7C42E69F-8D06-4EAE-986B-7994CCD72788}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C42E69F-8D06-4EAE-986B-7994CCD72788}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C42E69F-8D06-4EAE-986B-7994CCD72788}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5011F116-C361-41B4-847E-BE815E1D1E53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5011F116-C361-41B4-847E-BE815E1D1E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5011F116-C361-41B4-847E-BE815E1D1E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5011F116-C361-41B4-847E-BE815E1D1E53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

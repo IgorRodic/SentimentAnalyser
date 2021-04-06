@@ -7,10 +7,13 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["SentimentAnalyser.WebApi/SentimentAnalyser.WebApi.csproj", "SentimentAnalyser.WebApi/"]
-RUN dotnet restore "SentimentAnalyser.WebApi/SentimentAnalyser.WebApi.csproj"
+COPY ["src/Apps/SentimentAnalyser.WebApi/SentimentAnalyser.WebApi.csproj", "src/Apps/SentimentAnalyser.WebApi/"]
+COPY ["src/Common/SentimentAnalyser.Infrastructure/SentimentAnalyser.Infrastructure.csproj", "src/Common/Infrastructure/"]
+COPY ["src/Common/SentimentAnalyser.Application/SentimentAnalyser.Application.csproj", "src/Common/Application/"]
+COPY ["src/Common/SentimentAnalyser.Domain/SentimentAnalyser.Domain.csproj", "src/Common/Domain/"]
+RUN dotnet restore "src/Apps/SentimentAnalyser.WebApi/SentimentAnalyser.WebApi.csproj"
 COPY . .
-WORKDIR "/src/SentimentAnalyser.WebApi"
+WORKDIR "/src/src/Apps/SentimentAnalyser.WebApi"
 RUN dotnet build "SentimentAnalyser.WebApi.csproj" -c Release -o /app/build
 
 FROM build AS publish

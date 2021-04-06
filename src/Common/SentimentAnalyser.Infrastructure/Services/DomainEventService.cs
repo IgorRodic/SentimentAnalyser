@@ -4,9 +4,6 @@ using SentimentAnalyser.Application.Common.Interfaces;
 using SentimentAnalyser.Application.Common.Models;
 using SentimentAnalyser.Domain.Common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SentimentAnalyser.Infrastructure.Services

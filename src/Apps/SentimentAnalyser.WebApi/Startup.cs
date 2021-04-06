@@ -1,15 +1,14 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
 using SentimentAnalyser.Application;
-using SentimentAnalyser.Application.Common.Interfaces;
 using SentimentAnalyser.Infrastructure;
-using SentimentAnalyser.WebApi.Services;
+using SentimentAnalyser.Infrastructure.Database;
 
 namespace SentimentAnalyser.WebApi
 {
@@ -27,20 +26,15 @@ namespace SentimentAnalyser.WebApi
             services.AddApplication();
             services.AddInfrastructure(Configuration);
 
-            services.AddSingleton<ICurrentUserService, CurrentUserService>();
-
             services.AddHttpContextAccessor();
 
             //services.AddDatabaseDeveloperPageExceptionFilter();
 
-            //services.AddHealthChecks().AddDbContextCheck<ApplicationDbContext>();
+            services.AddHealthChecks().AddDbContextCheck<ApplicationDbContext>();
 
             //services.AddControllers(options =>
             //        options.Filters.Add<ApiExceptionFilterAttribute>())
             //    .AddFluentValidation();
-
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAd"));
 
             //services.AddOpenApiDocument(configure =>
             //{
@@ -76,13 +70,11 @@ namespace SentimentAnalyser.WebApi
 
             app.UseHttpsRedirection();
 
-            //app.UseOpenApi();
-
             app.UseRouting();
 
+            app.UseCors();
+
             app.UseAuthentication();
-            app.UseIdentityServer();
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

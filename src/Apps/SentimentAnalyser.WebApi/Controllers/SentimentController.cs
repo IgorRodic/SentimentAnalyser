@@ -7,18 +7,18 @@ using SentimentAnalyser.Application.Sentiments.Queries.GetSentiments;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Cors;
+using SentimentAnalyser.Application.Sentiments.Commands.Create;
+using SentimentAnalyser.Application.Sentiments.Commands.Delete;
+using SentimentAnalyser.Application.Sentiments.Commands.Update;
 
 namespace SentimentAnalyser.WebApi.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class SentimentController : BaseApiController
     {
-
-        // The Web API will only accept tokens 1) for users, and 2) having the "access_as_user" scope for this API
-        static readonly string[] scopeRequiredByApi = new string[] { "access_as_user" };
-
         [HttpGet]
         public async Task<ActionResult<ServiceResult<List<SentimentDto>>>> GetAllSentiments(CancellationToken cancellationToken)
         {
@@ -31,22 +31,22 @@ namespace SentimentAnalyser.WebApi.Controllers
             return Ok(await Mediator.Send(new GetSentimentByIdQuery { Id = id }));
         }
 
-        //[HttpPost]
-        //public async Task<ActionResult<ServiceResult<SentimentDto>>> Create(CreateCityCommand command)
-        //{
-        //    return Ok(await Mediator.Send(command));
-        //}
+        [HttpPost]
+        public async Task<ActionResult<ServiceResult<SentimentDto>>> Create(CreateSentimentCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
 
-        //[HttpPut]
-        //public async Task<ActionResult<ServiceResult<SentimentDto>>> Update(UpdateCityCommand command)
-        //{
-        //    return Ok(await Mediator.Send(command));
-        //}
+        [HttpPut]
+        public async Task<ActionResult<ServiceResult<SentimentDto>>> Update(UpdateSentimentCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
 
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<ServiceResult<SentimentDto>>> Delete(int id)
-        //{
-        //    return Ok(await Mediator.Send(new DeleteCityCommand { Id = id }));
-        //}
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ServiceResult<SentimentDto>>> Delete(int id)
+        {
+            return Ok(await Mediator.Send(new DeleteSentimentCommand() { Id = id }));
+        }
     }
 }
