@@ -28,12 +28,12 @@ namespace SentimentAnalyser.Application.Sentiments.Queries.GetSentimentById
 
         public async Task<ServiceResult<SentimentDto>> Handle(GetSentimentByIdQuery request, CancellationToken cancellationToken)
         {
-            var city = await _context.Sentiments
+            var sentiment = await _context.Sentiments
                 .Where(x => x.Id == request.Id)
                 .ProjectToType<SentimentDto>(_mapper.Config)
                 .FirstOrDefaultAsync(cancellationToken);
 
-            return city != null ? ServiceResult.Success(city) : ServiceResult.Failed<SentimentDto>(ServiceError.NotFount);
+            return sentiment != null ? ServiceResult.Success(sentiment) : ServiceResult.Failed<SentimentDto>(ServiceError.NotFount);
         }
     }
 }

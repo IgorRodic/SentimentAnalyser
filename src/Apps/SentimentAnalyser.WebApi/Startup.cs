@@ -1,7 +1,5 @@
-using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,27 +26,18 @@ namespace SentimentAnalyser.WebApi
 
             services.AddHttpContextAccessor();
 
-            //services.AddDatabaseDeveloperPageExceptionFilter();
-
             services.AddHealthChecks().AddDbContextCheck<ApplicationDbContext>();
 
-            //services.AddControllers(options =>
-            //        options.Filters.Add<ApiExceptionFilterAttribute>())
-            //    .AddFluentValidation();
-
-            //services.AddOpenApiDocument(configure =>
-            //{
-            //    configure.Title = "CleanArchitecture API";
-            //    configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
-            //    {
-            //        Type = OpenApiSecuritySchemeType.ApiKey,
-            //        Name = "Authorization",
-            //        In = OpenApiSecurityApiKeyLocation.Header,
-            //        Description = "Type into the textbox: Bearer {your JWT token}."
-            //    });
-
-            //    configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
-            //});
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "allowSpecificOrigins",
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:4200")
+                                        .AllowAnyHeader()
+                                        .WithMethods(new string[] { "GET", "POST", "PUT", "DELETE" });
+                                  });
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

@@ -14,10 +14,10 @@ namespace SentimentAnalyser.Application.Sentiments.Commands.Create
         {
             _context = context;
 
-            RuleFor(v => v.Name)
-                .MaximumLength(100).WithMessage("Name must not exceed 100 characters.")
-                .MustAsync(BeUniqueWord).WithMessage("The specified city already exists.")
-                .NotEmpty().WithMessage("Name is required.");
+            RuleFor(v => v.Word)
+                .MaximumLength(100).WithMessage("Word must not exceed 100 characters.")
+                .MustAsync(BeUniqueWord).WithMessage("The specified word already exists.")
+                .NotEmpty().WithMessage("Word is required.");
         }
 
         private async Task<bool> BeUniqueWord(string word, CancellationToken cancellationToken)

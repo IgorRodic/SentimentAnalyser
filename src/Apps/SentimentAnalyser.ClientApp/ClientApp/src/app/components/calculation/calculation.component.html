@@ -1,0 +1,24 @@
+<mat-button-toggle-group matInput name="inputType" (change)="toggleChangeInputType($event)" value="text" class="input-type">
+    <mat-button-toggle value="text">Enter text</mat-button-toggle>
+    <mat-button-toggle value="file">Upload file</mat-button-toggle>
+</mat-button-toggle-group>
+
+<form class="example-form">
+    <mat-form-field class="example-full-width" *ngIf="!fileSelected">
+      <mat-label>Enter the text that you would like to calculate the sentiment score for</mat-label>
+      <textarea matInput rows="10" placeholder="Ex. Today is a nice day..." name="text" [(ngModel)]="text"></textarea>
+    </mat-form-field>
+</form>
+
+<div *ngIf="fileSelected" class="file-upload">
+    <button mat-raised-button (click)="openFile()" color="warn">Browse
+        <input type="file" accept=".txt" style="display:none" (change)="handle($event)">
+    </button>
+    <h4 *ngIf="this.fileName">{{this.fileName}}</h4>
+</div>
+
+
+<button mat-raised-button color="primary" (click)="getTextConnotation()">Calculate</button>
+
+<h3 *ngIf="this.isSentimentCalculated">This text has a <span [ngClass]="this.textConnotationCssClass">{{this.textConnotation}}</span> connotation.</h3>
+  

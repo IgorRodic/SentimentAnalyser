@@ -18,12 +18,12 @@ namespace SentimentAnalyser.Application.Sentiments.Commands.Update
         public float SentimentScore { get; set; }
     }
 
-    public class UpdateCityCommandHandler : IRequestHandlerWrapper<UpdateSentimentCommand, SentimentDto>
+    public class UpdateSentimentCommandHandler : IRequestHandlerWrapper<UpdateSentimentCommand, SentimentDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public UpdateCityCommandHandler(IApplicationDbContext context, IMapper mapper)
+        public UpdateSentimentCommandHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

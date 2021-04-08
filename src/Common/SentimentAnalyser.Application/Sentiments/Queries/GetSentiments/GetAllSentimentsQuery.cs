@@ -1,14 +1,12 @@
-﻿using SentimentAnalyser.Application.Common.Interfaces;
-using SentimentAnalyser.Application.Dto;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Mapster;
+﻿using Mapster;
 using MapsterMapper;
+using Microsoft.EntityFrameworkCore;
+using SentimentAnalyser.Application.Common.Interfaces;
 using SentimentAnalyser.Application.Common.Models;
+using SentimentAnalyser.Application.Dto;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace SentimentAnalyser.Application.Sentiments.Queries.GetSentiments
 {

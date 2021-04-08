@@ -11,7 +11,7 @@ namespace SentimentAnalyser.Infrastructure.Database.Configurations
             builder.Ignore(e => e.DomainEvents);
 
             builder.Property(t => t.Id).HasColumnName(nameof(Sentiment.Id)).IsRequired();
-            builder.Property(t => t.Word).HasColumnName(nameof(Sentiment.Word)).HasMaxLength(50).IsRequired();
+            builder.Property(t => t.Word).HasColumnName(nameof(Sentiment.Word)).HasMaxLength(100).IsRequired();
             builder.Property(t => t.SentimentScore).HasColumnName(nameof(Sentiment.SentimentScore)).IsRequired();
         }
     }

@@ -1,12 +1,12 @@
-using System;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SentimentAnalyser.Infrastructure.Database;
+using System;
+using System.Threading.Tasks;
+using Serilog;
 
 namespace SentimentAnalyser.WebApi
 {
@@ -28,8 +28,6 @@ namespace SentimentAnalyser.WebApi
                     {
                         await context.Database.MigrateAsync();
                     }
-
-                    await ApplicationDbContextSeed.Seed(context);
                 }
                 catch (Exception ex)
                 {
@@ -46,6 +44,14 @@ namespace SentimentAnalyser.WebApi
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .UseSerilog(((context, configuration) =>
+                {
+                    configuration.Enrich.FromLogContext()
+                        .Enrich.WithMachineName()
+                        .WriteTo.Console()
+                        .Enrich.WithProperty("Environment", context.HostingEnvironment.EnvironmentName)
+                        .ReadFrom.Configuration(context.Configuration);
+                }))
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

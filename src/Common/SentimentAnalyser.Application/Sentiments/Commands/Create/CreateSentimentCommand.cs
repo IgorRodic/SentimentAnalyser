@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using MapsterMapper;
+﻿using MapsterMapper;
 using SentimentAnalyser.Application.Common.Interfaces;
 using SentimentAnalyser.Application.Common.Models;
 using SentimentAnalyser.Application.Dto;
 using SentimentAnalyser.Domain.Entities;
 using SentimentAnalyser.Domain.Event;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SentimentAnalyser.Application.Sentiments.Commands.Create
 {
     public class CreateSentimentCommand : IRequestWrapper<SentimentDto>
     {
-        public string Name { get; set; }
+        public string Word { get; set; }
 
         public float SentimentScore { get; set; }
     }
@@ -34,7 +31,7 @@ namespace SentimentAnalyser.Application.Sentiments.Commands.Create
         {
             var entity = new Sentiment
             {
-                Word = request.Name,
+                Word = request.Word,
                 SentimentScore = request.SentimentScore
             };
 

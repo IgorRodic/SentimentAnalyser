@@ -19,12 +19,12 @@ namespace SentimentAnalyser.Application.Sentiments.Commands.Delete
         public int Id { get; set; }
     }
 
-    public class DeleteCityCommandHandler : IRequestHandlerWrapper<DeleteSentimentCommand, SentimentDto>
+    public class DeleteSentimentCommandHandler : IRequestHandlerWrapper<DeleteSentimentCommand, SentimentDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public DeleteCityCommandHandler(IApplicationDbContext context, IMapper mapper)
+        public DeleteSentimentCommandHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

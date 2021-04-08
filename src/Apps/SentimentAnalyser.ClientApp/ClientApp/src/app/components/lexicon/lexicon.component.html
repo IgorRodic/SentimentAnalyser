@@ -1,0 +1,45 @@
+<div class="header">
+    <button mat-button (click)="filterAll()">All</button>
+    <button mat-button (click)="filterPositive()">Positive</button>
+    <button mat-button (click)="filterNegative()">Negative</button>
+    <button mat-raised-button color="primary" (click)="addSentiment()">Add word</button>
+</div>
+
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">  
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id </th>
+            <td mat-cell *matCellDef="let sentiment"> {{sentiment.id}} </td>
+        </ng-container>
+
+        <!-- Word Column -->
+        <ng-container matColumnDef="word" class="mat-column-word">
+            <th mat-header-cell *matHeaderCellDef> Word </th>
+            <td mat-cell *matCellDef="let sentiment" [ngClass]="getWordConnotation(sentiment)"> {{sentiment.word}} </td>
+        </ng-container>
+
+        <!-- Score Column -->
+        <ng-container matColumnDef="score">
+            <th mat-header-cell *matHeaderCellDef> Score </th>
+            <td mat-cell *matCellDef="let sentiment"> {{sentiment.sentimentScore}} </td>
+        </ng-container>
+
+        <!-- Score Column -->
+        <ng-container matColumnDef="actions" class="mat-column-actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let sentiment">
+                <button mat-raised-button color="primary" class="action-button" (click)="editSentiment(sentiment)">Edit</button>
+                <button mat-raised-button color="warn" class="action-button" (click)="deleteSentiment(sentiment.id)">Delete</button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="getPageSizeOptions()" showFirstLastButtons></mat-paginator>
+
+</div>
+
+<h3 *ngIf="this.showError"> {{ error }} </h3>

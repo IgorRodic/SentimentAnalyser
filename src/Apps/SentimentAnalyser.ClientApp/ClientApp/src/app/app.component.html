@@ -1,0 +1,23 @@
+<div class="toolbar" role="banner">
+  <img
+    width="40"
+    alt="Finbet Logo"
+    src="../assets/finbet.png"
+  />
+
+  <div>
+    <a mat-button [routerLink]="'/lexicon'"> Lexicon </a>
+    <a mat-button [routerLink]="'/calculation'"> Calculation </a>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="title-div">
+    <h1> Sentiment Analyser </h1>
+  </div>
+</div>
+
+<div class="content" role="main">
+</div>
+
+<router-outlet></router-outlet>

@@ -1,21 +1,21 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using SentimentAnalyser.Application.Common.Models;
 using SentimentAnalyser.Application.Dto;
-using SentimentAnalyser.Application.Sentiments.Queries.GetSentimentById;
-using SentimentAnalyser.Application.Sentiments.Queries.GetSentiments;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Cors;
 using SentimentAnalyser.Application.Sentiments.Commands.Create;
 using SentimentAnalyser.Application.Sentiments.Commands.Delete;
 using SentimentAnalyser.Application.Sentiments.Commands.Update;
+using SentimentAnalyser.Application.Sentiments.Queries.GetSentimentById;
+using SentimentAnalyser.Application.Sentiments.Queries.GetSentiments;
+using SentimentAnalyser.Application.Sentiments.Queries.GetSentimentScore;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SentimentAnalyser.WebApi.Controllers
 {
     [ApiController]
+    [EnableCors("allowSpecificOrigins")]
     [Route("[controller]")]
     public class SentimentController : BaseApiController
     {
@@ -47,6 +47,12 @@ namespace SentimentAnalyser.WebApi.Controllers
         public async Task<ActionResult<ServiceResult<SentimentDto>>> Delete(int id)
         {
             return Ok(await Mediator.Send(new DeleteSentimentCommand() { Id = id }));
+        }
+
+        [HttpPost("calculation")]
+        public async Task<ActionResult<ServiceResult<sbyte>>> CalculateSentimentScore(CalculateSentimentScoreCommand command)
+        {
+            return Ok(await Mediator.Send(command));
         }
     }
 }

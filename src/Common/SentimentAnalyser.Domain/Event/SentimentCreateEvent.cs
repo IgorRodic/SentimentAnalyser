@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SentimentAnalyser.Domain.Common;
+﻿using SentimentAnalyser.Domain.Common;
 using SentimentAnalyser.Domain.Entities;
 
 namespace SentimentAnalyser.Domain.Event
