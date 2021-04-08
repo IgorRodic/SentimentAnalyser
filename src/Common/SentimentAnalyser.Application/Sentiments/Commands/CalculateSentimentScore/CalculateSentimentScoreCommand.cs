@@ -29,7 +29,7 @@ namespace SentimentAnalyser.Application.Sentiments.Queries.GetSentimentScore
 
             float sentimentScore = 0.0f;
 
-            var words = request.Text.Split(delimiters);
+            var words = request.Text.ToLower().Split(delimiters);
 
             for(int i = 0; i < words.Length; i++)
             {
