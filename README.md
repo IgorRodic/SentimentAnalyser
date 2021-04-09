@@ -52,6 +52,8 @@ docker-compose up -d
 ```
 which build and start up the WebAPI and the SQL server containers in detached mode. This can take some time until the containers are completely ready (30-60 seconds). The alternative is to run the API in debug mode by entering visual studio, selecting the docker-compose project as the start-up project, and runnig the application. 
 
+There is a possibility that the container creation will fail when running for the first time (login failed for user 'sa') which is a knows sql server issue, because the database server is started up but not ready to receive connections yet. It this case just start the app again and everything will work fine.
+
 The swagger page of the WebAPI can be found on the following link (which is https only) https://localhost:5006/swagger/index.html which can be used for testing and documentation. The SQL Server database is started on port 21433, with username: sa; password: Finbet123!, with the initial sentiments added.
 
 A prerequisite for running the ClientApp is having [Angular](https://angular.io/guide/setup-local) 11 installed. The app can be started by running the following command in the SentimentAnalyser.ClientApp folder:
