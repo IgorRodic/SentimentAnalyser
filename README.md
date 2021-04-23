@@ -1,6 +1,6 @@
 ﻿ # Sentiment Analyser
 
-This is a test project for a job application at the company Finbet. The application performs sentiment analysis on a text based on previously entered word scores, which can themselves be created, updated or deleted. 
+The application performs sentiment analysis on a text based on previously entered word scores, which can themselves be created, updated or deleted. 
 
 ## Technologies
 
